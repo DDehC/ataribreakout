@@ -21,9 +21,5 @@ public abstract class Sprite {
 	}
 	public abstract void update(Keyboard keyboard);
 	public abstract void draw(Graphics2D graphics);
-	public void update(Keyboard keyboard, Player player) {
-		// TODO Auto-generated method stub
-		
-	}
 	public abstract Rectangle getBounds();
 }

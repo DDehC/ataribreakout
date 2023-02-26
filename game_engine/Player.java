@@ -19,7 +19,7 @@ public class Player extends Sprite {
             }
         }
     }
-
+    
     @Override
     public void draw(Graphics2D graphics) {
         graphics.setColor(Color.pink);
