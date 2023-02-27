@@ -53,16 +53,26 @@ public class Ball extends Sprite {
     
     public void speedup() {
     	if(change <3) {
-    	xDirection *= 1.4;
-    	yDirection *= 1.4;
+    	xDirection *= 1.5;
+    	yDirection *= 1.5;
     	change++;
     	}
+    }
+    
+    public void levelComplete() {
+    	xDirection = 0;
+    	yDirection = 0;
     }
     
     @Override
     public void draw(Graphics2D graphics) {
         graphics.setColor(Color.red);
         graphics.fillOval(getX(), getY(), getWidth(), getHeight());   
+    }
+    
+    public int returnY() {
+    	int y = getY();
+    	return y;
     }
 
     public Rectangle getBounds() {

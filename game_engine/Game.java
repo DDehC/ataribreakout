@@ -9,13 +9,11 @@ public class Game {
 	Player player;
 	Ball ball;
 	Bricks bricks;
-	Score score;
 
 	public Game(GameBoard board) {
-		bricks = new Bricks(5, 10);
+		bricks = new Bricks(1, 10);
 		player = new Player(350, 600 - 30, 100, 10);
 		ball = new Ball(395, 450, 15, 15, bricks);
-		score = new Score(bricks);
 	} 
 
 	public void update(Keyboard keyboard) {
@@ -29,10 +27,10 @@ public class Game {
 
 	public void draw(Graphics2D graphics) {
 		bricks.draw(graphics);
-		score.drawScore(graphics);
+		bricks.drawScore(graphics);
 		player.draw(graphics);
 		ball.draw(graphics);
-		score.win(graphics);
-		score.loss(graphics);
+		bricks.win(graphics);
+		bricks.loss(graphics);
 		}
 }
