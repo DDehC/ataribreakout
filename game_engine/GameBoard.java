@@ -16,7 +16,7 @@ public class GameBoard extends JComponent {
 		
 		JComponent scorePanel;
 		JComponent JPanel = scorePanel = new JPanel();
-		scorePanel.setBackground(Color.white);
+		scorePanel.setBackground(Color.red);
 		scorePanel.setBounds(Consts.FRAME_WIDTH, 0, 150, Consts.FRAME_HEIGHT);
 		this.add(scorePanel);
 		
