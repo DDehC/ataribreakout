@@ -2,6 +2,8 @@ package game_engine;
 import java.awt.*;
 
 public class Player extends Sprite {
+    boolean spacebarPressed = false;
+
     public Player(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
@@ -18,8 +20,15 @@ public class Player extends Sprite {
                 setX(getX() - 10);
             }
         }
+        if (keyboard.isKeyDown(Key.Space)) {
+            if (!spacebarPressed) {
+                spacebarPressed = true;
+            }
+        } else {
+            spacebarPressed = false;
+        }
     }
-    
+
     @Override
     public void draw(Graphics2D graphics) {
         graphics.setColor(Color.pink);
@@ -29,8 +38,8 @@ public class Player extends Sprite {
     public Rectangle getBounds() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
-    
+
     public boolean intersect(Ball ball) {
-    	return this.getBounds().intersects(ball.getBounds());
+        return this.getBounds().intersects(ball.getBounds());
     }
 }

@@ -1,8 +1,10 @@
 package game_engine;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-import javax.swing.JComponent;
+import javax.swing.*;
+import game_engine.Consts;
 
 public class GameBoard extends JComponent {
 	private final int FPS = 40; 
@@ -11,12 +13,19 @@ public class GameBoard extends JComponent {
 	public GameBoard() {
 		keyboard = new Keyboard();
 		game = new Game(this);
+		
+		JComponent scorePanel;
+		JComponent JPanel = scorePanel = new JPanel();
+		scorePanel.setBackground(Color.white);
+		scorePanel.setBounds(Consts.FRAME_WIDTH, 0, 150, Consts.FRAME_HEIGHT);
+		this.add(scorePanel);
+		
 	}
 	
-	@Override
-	public Dimension getPreferredSize() {
-		return new Dimension(800, 600);
-	}
+	 @Override
+	    public Dimension getPreferredSize() {
+	        return new Dimension(Consts.FRAME_WIDTH + 150, Consts.FRAME_HEIGHT);
+	    }
 
 	@Override
 	protected void paintComponent(Graphics arg0) {
@@ -24,7 +33,7 @@ public class GameBoard extends JComponent {
 		Graphics2D graphics = (Graphics2D)arg0;
 		graphics.setColor(Color.black);
 		graphics.fillRect(0, 0, getWidth(), getHeight());
-		
+			
 		game.draw(graphics);
 	}
 	

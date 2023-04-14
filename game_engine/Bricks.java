@@ -1,4 +1,5 @@
 package game_engine;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -9,11 +10,12 @@ public class Bricks {
 	Ball ball;
     private int brickRows;
     private int brickColumns;
-    private int brickWidth = 77;
-    private int brickHeight = 20;
+    private int brickWidth = 85;
+    private int brickHeight = 25;
     public int[][] map;
     public int score = 0;
     public int brickCount = brickRows * brickColumns;
+    public boolean gamecomplete = false;
 
     public Bricks(int brickRows, int brickColumns) {
         this.brickRows = brickRows;
@@ -35,9 +37,10 @@ public class Bricks {
             for (int j = 0; j < map[0].length; j++) {
                 if (map[i][j] > 0) {
                     graphics.setColor(MyColor.columbia);
-                    graphics.fillRect(15 + j * brickWidth, i * brickHeight + 50, brickWidth, brickHeight);
+                    graphics.fillRect(20 + j * brickWidth, i * brickHeight + 45, brickWidth, brickHeight);
+                    graphics.setStroke(new BasicStroke(2));
                     graphics.setColor(Color.BLACK);
-                    graphics.drawRect(15 + j * brickWidth, i * brickHeight + 50, brickWidth, brickHeight);
+                    graphics.drawRect(20 + j * brickWidth, i * brickHeight + 45, brickWidth, brickHeight);
                 }
             }
         }
@@ -47,8 +50,8 @@ public class Bricks {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
                 if (map[i][j] > 0) {
-                    int brickX = 15 + j * brickWidth;
-                    int brickY = i * brickHeight + 50;
+                    int brickX = 20 + j * brickWidth;
+                    int brickY = 20 + i * brickHeight + 45;
                     int brickWidth = this.brickWidth;
                     int brickHeight = this.brickHeight;
 
@@ -58,7 +61,12 @@ public class Bricks {
                     if (ballRectangle.intersects(brickRectangle)) {
                         map[i][j] = 0;
                         score+=5;
-                        brickCount--;   
+                        brickCount--;  
+                        if (brickCount == 0) {
+                        	gamecomplete = true;
+                        } else {
+                        	gamecomplete = false;
+                        }
                         return true;
                     }
                 }
@@ -67,30 +75,20 @@ public class Bricks {
         return false;
     }
 
-	
-	
     public void drawScore(Graphics2D graphics) {
         graphics.setColor(Color.white);
         graphics.setFont(new Font("Sans-serif", Font.PLAIN, 20));
         graphics.drawString("Score: " + score, 10, 30);
     }
     
-	 public void win(Graphics2D graphics) {
-    	 if (brickCount == 0) {
-             graphics.setColor(Color.WHITE);
-             graphics.setFont(new Font("sans-serif", Font.BOLD, 32));
-             graphics.drawString("Level Complete! Hightscore: "+ brickCount, (700/2) - 300, 300);
-             ball.levelComplete();
-         }
+    public boolean levelcomplete(Graphics2D graphics) {
+    	return gamecomplete;
+    	}
+    
+    public int getScore() {
+    	return score;
     }
-	
-	/* public void loss(Graphics2D graphics) {
-	    	if(ballPositionY == Consts.FRAME_HEIGHT) {
-	    		 graphics.setColor(Color.red);
-	             graphics.setFont(new Font("sans-serif", Font.BOLD, 32));
-	             graphics.drawString("Game Over! Highscore: "+ bricks.getballY(), (700/2) - 200, 300);		
-	    	}
-	    }
-    */
+
+    
 
 }

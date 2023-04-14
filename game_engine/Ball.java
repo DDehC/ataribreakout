@@ -1,27 +1,39 @@
-package game_engine;
+package game_engine; 
+
 import game_engine.Consts;
 import java.awt.*;
-
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Ball extends Sprite {
     Player player;
     Bricks bricks;
     private int startmoving = 0;
-    private int yDirection = 2;
+    private int yDirection = 3;
     private int xDirection = 1;
     private int change = 0;
+    private Color ballColor = Color.RED;
+    private Timer timer;
 
     public Ball(int x, int y, int width, int height, Bricks bricks) {
         super(x, y, width, height);
         this.bricks = bricks;
-    }
-
-    public void reverseY() {
-    	yDirection *= -1;
-    }
-
-    public void reverseX() {
-        xDirection *= -1;
+        
+        
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (ballColor.equals(MyColor.yelo)) {
+                    ballColor = MyColor.blu;
+                } else if (ballColor.equals(MyColor.blu)) {
+                    ballColor = MyColor.tangelo;
+                } else {
+                    ballColor = MyColor.yelo;
+                }
+            }
+        }, 1000, 100);
+       
     }
 
     @Override
@@ -51,28 +63,26 @@ public class Ball extends Sprite {
         }
     }
     
-    public void speedup() {
-    	if(change <3) {
-    	xDirection *= 1.5;
-    	yDirection *= 1.5;
-    	change++;
-    	}
-    }
-    
-    public void levelComplete() {
-    	xDirection = 0;
-    	yDirection = 0;
-    }
-    
     @Override
     public void draw(Graphics2D graphics) {
-        graphics.setColor(Color.red);
+        graphics.setColor(ballColor);
         graphics.fillOval(getX(), getY(), getWidth(), getHeight());   
     }
     
-    public int returnY() {
-    	int y = getY();
-    	return y;
+    public void reverseY() {
+        yDirection *= -1;
+    }
+
+    public void reverseX() {
+        xDirection *= -1;
+    }
+    
+    public void speedup() {
+        if(change <3) {
+            xDirection *= 1.4;
+            yDirection *= 1.4;
+            change++;
+        }
     }
 
     public Rectangle getBounds() {
@@ -80,7 +90,6 @@ public class Ball extends Sprite {
     }
 
     public boolean intersect(Player player) {
-    	return this.getBounds().intersects(player.getBounds());
+        return this.getBounds().intersects(player.getBounds());
     }
-
 }
