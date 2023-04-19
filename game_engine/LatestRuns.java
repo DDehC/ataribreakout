@@ -40,5 +40,16 @@ public class LatestRuns extends JPanel {
 		mainPanel.add(listElement);
 		mainPanel.add(panel);
 		add(label, BorderLayout.NORTH); 
+		
+		frame = new JFrame("Latest Runs");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(true);
+		frame.setSize(300, 350);
+		frame.setBackground(Color.black);
+		
+		frame.add(this);
+		frame.setLocation(950, 350);
+		
+		frame.setVisible(true);
 		}
 }

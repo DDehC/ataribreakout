@@ -11,15 +11,19 @@ import java.util.Comparator;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JOptionPane;
+
 public class Game {
     Player player;
     Ball ball;
     Bricks bricks;
     HighScoreList highscorelist;
+    LatestRuns latestruns;
     int ballsLost;
     int ballCount;
     int score;
-    boolean gameComplete = false;
+    private boolean gameComplete = false;
+    private boolean gameUpdateExecuted = false;
 
     public Game(GameBoard board) {
         bricks = new Bricks(1, 9);
@@ -27,6 +31,9 @@ public class Game {
         ball = createBall();
         ballsLost = 0;
         ballCount = 3;
+        
+        highscorelist = new HighScoreList();
+        latestruns = new LatestRuns();
     }
 
     public void update(Keyboard keyboard) {
@@ -46,6 +53,28 @@ public class Game {
                 ballCount--;
             }
         }
+        gameupdate();
+    }
+    
+    public void gameupdate() {
+    	if(ballCount == 0 || bricks.gamecomplete) {
+        	gameUpdateExecuted = true;
+        	while(Consts.stateOfGame < 0) {
+        		
+            	Consts.name = JOptionPane.showInputDialog(null, "Please enter a 3 letter ID", "Info", JOptionPane.INFORMATION_MESSAGE);
+	        	if(Consts.name == null) {
+	        		JOptionPane.showInputDialog(null, "No input recieved", "Info");
+	        	} else if (Consts.name.length() != 3) {
+	        		JOptionPane.showMessageDialog(null, "Please enter a name ID consisting of 3 letters!", "Error", JOptionPane.INFORMATION_MESSAGE);
+	        	} else if(Consts.name.length() == 3) {
+	        		highscorelist.newScore(Consts.name.toUpperCase(),bricks.getScore());
+	        		JOptionPane.showMessageDialog(null, "Score submitted, press OK to restart the game!", "Success", JOptionPane.INFORMATION_MESSAGE);
+	        		Consts.stateOfGame++;
+	        		
+	        		restartGame();
+	        	}
+        	}
+    	}
     }
 
     public void draw(Graphics2D graphics) {
@@ -80,8 +109,17 @@ public class Game {
             gameComplete = true;
         }
     }
- 
     private Ball createBall() {
-        return new Ball(395, 450, 17, 17, bricks);
+    	return new Ball(395, 450, 17, 17, bricks);
+    }
+    
+    public void restartGame() {
+    	bricks = new Bricks(1, 9);
+        player = new Player(350, 600 - 30, 100, 10);
+        ball = createBall();
+        ballsLost = 0;
+        ballCount = 3;
+        gameComplete = false;
+        gameUpdateExecuted = false; 
     }
 }

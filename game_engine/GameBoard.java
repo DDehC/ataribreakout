@@ -21,7 +21,7 @@ public class GameBoard extends JComponent {
 		game = new Game(this);	
 		this.bricks = bricks;
 		
-		JComponent scorePanel;
+		/*JComponent scorePanel;
 		JComponent JPanel = scorePanel = new JPanel();
 		scorePanel.setBackground(Color.black);
 		scorePanel.setBounds(Consts.FRAME_WIDTH, 0, 150, Consts.FRAME_HEIGHT/2);
@@ -36,7 +36,7 @@ public class GameBoard extends JComponent {
 		highScoreList = new HighScoreList();
 		latestruns = new LatestRuns();
 		scorePanel.add(highScoreList);
-		latest.add(latestruns);
+		latest.add(latestruns);*/
 	}
 	
 	@Override

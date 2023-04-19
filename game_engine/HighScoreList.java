@@ -21,8 +21,6 @@ public class HighScoreList extends JPanel {
 	private DefaultListModel highscoreData;
 	private JList listElement;
 	private JLabel label;
-	private Bricks bricks; // Reference to Bricks class
-	private JLabel scoreLabel; // Label to display score
 
 	HighScoreList() {
 		setLayout(new BorderLayout());
@@ -43,6 +41,17 @@ public class HighScoreList extends JPanel {
 		mainPanel.add(listElement);
 		mainPanel.add(panel);
 		add(label, BorderLayout.NORTH);
+		
+		frame = new JFrame("High Score");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(true);
+		frame.setSize(300, 350);
+		frame.setBackground(Color.black);
+		
+		frame.add(this);
+		frame.setLocation(950, 0);
+		
+		frame.setVisible(true);
 	}
 
 	public void newScore(String Name, int point) {
@@ -70,5 +79,13 @@ public class HighScoreList extends JPanel {
 			int indexToRemove = highscoreData.size() - 1;
 			highscoreData.remove(indexToRemove);
 		}
+	}
+
+	public DefaultListModel getHighscoreData() {
+		return highscoreData;
+	}
+
+	public void setHighscoreData(DefaultListModel highscoreData) {
+		this.highscoreData = highscoreData;
 	}
 }
