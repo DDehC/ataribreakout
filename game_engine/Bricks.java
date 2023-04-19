@@ -1,13 +1,16 @@
 package game_engine;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import javax.swing.DefaultListModel;
 
 public class Bricks {
 
-	Ball ball;
+    Ball ball;
+    Game game;
     private int brickRows;
     private int brickColumns;
     private int brickWidth = 85;
@@ -20,6 +23,7 @@ public class Bricks {
     public Bricks(int brickRows, int brickColumns) {
         this.brickRows = brickRows;
         this.brickColumns = brickColumns;
+        this.game = game;
         map = new int[brickRows][brickColumns];
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
@@ -28,9 +32,6 @@ public class Bricks {
             }
         }
     }
-    
-    private boolean gameWon = false;
-    private boolean gameLost = false;
 
     public void draw(Graphics2D graphics) {
         for (int i = 0; i < map.length; i++) {
@@ -60,13 +61,14 @@ public class Bricks {
 
                     if (ballRectangle.intersects(brickRectangle)) {
                         map[i][j] = 0;
-                        score+=5;
-                        brickCount--;  
+                        score += 5;
+                        brickCount--;
                         if (brickCount == 0) {
-                        	gamecomplete = true;
+                            gamecomplete = true;
                         } else {
-                        	gamecomplete = false;
+                            gamecomplete = false;
                         }
+                      
                         return true;
                     }
                 }
@@ -74,21 +76,16 @@ public class Bricks {
         }
         return false;
     }
-
     public void drawScore(Graphics2D graphics) {
         graphics.setColor(Color.white);
         graphics.setFont(new Font("Sans-serif", Font.PLAIN, 20));
         graphics.drawString("Score: " + score, 10, 30);
     }
-    
     public boolean levelcomplete(Graphics2D graphics) {
-    	return gamecomplete;
-    	}
-    
+        return gamecomplete;
+    }
     public int getScore() {
     	return score;
     }
-
-    
-
 }
+

@@ -4,28 +4,45 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 import game_engine.Consts;
 
 public class GameBoard extends JComponent {
 	private final int FPS = 40; 
 	private Game game;
+	private Bricks bricks;
 	private Keyboard keyboard;
+	private JLabel scoreLabel;
+	private HighScoreList highScoreList;
+	private LatestRuns latestruns;
+
 	public GameBoard() {
 		keyboard = new Keyboard();
-		game = new Game(this);
+		game = new Game(this);	
+		this.bricks = bricks;
 		
 		JComponent scorePanel;
 		JComponent JPanel = scorePanel = new JPanel();
-		scorePanel.setBackground(Color.red);
-		scorePanel.setBounds(Consts.FRAME_WIDTH, 0, 150, Consts.FRAME_HEIGHT);
+		scorePanel.setBackground(Color.black);
+		scorePanel.setBounds(Consts.FRAME_WIDTH, 0, 150, Consts.FRAME_HEIGHT/2);
 		this.add(scorePanel);
 		
+		JComponent latest;
+		JComponent JPanel2 = latest = new JPanel();
+		latest.setBackground(Color.black);
+		latest.setBounds(Consts.FRAME_WIDTH, 300, 150, Consts.FRAME_HEIGHT);
+		this.add(latest);
+		
+		highScoreList = new HighScoreList();
+		latestruns = new LatestRuns();
+		scorePanel.add(highScoreList);
+		latest.add(latestruns);
 	}
 	
-	 @Override
-	    public Dimension getPreferredSize() {
-	        return new Dimension(Consts.FRAME_WIDTH + 150, Consts.FRAME_HEIGHT);
-	    }
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(Consts.FRAME_WIDTH + 150, Consts.FRAME_HEIGHT);
+	}
 
 	@Override
 	protected void paintComponent(Graphics arg0) {
